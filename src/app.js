@@ -4,4 +4,4 @@ import './js/index';
 import currentLocation from './js/index';
 
 
-currentLocation();
+currentLocation('forecast1');

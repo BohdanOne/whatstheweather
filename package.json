@@ -46,6 +46,9 @@
   "dependencies": {
     "axios": "^0.18.0"
   },
-  "keywords": ["weather", "app"],
+  "keywords": [
+    "weather",
+    "app"
+  ],
   "description": "Check weather in your actual or chosen location"
 }
