@@ -1,21 +1,22 @@
-const display = document.getElementById('app');
+const display = document.getElementById('display');
 
 class UI {
   static displayCurrentLocation(location) {
     const locationDisplay = document.querySelector('#locationDisplay');
     locationDisplay.innerHTML =
-      `<p>You are in:</p>
-      <p>${location}</p>`
+    `<p>You are in:<br>${location}</p>`
   }
 
   static displayWeather(weather) {
     const weatherDisplay = document.createElement('div');
+    weatherDisplay.id = weatherDisplay;
+    weatherDisplay.classList.add('display');
     display.appendChild(weatherDisplay);
     const icon = weather.WeatherIcon < 10 ? `0${weather.WeatherIcon}`: weather.WeatherIcon;
     weatherDisplay.innerHTML =
       `<img src="https://developer.accuweather.com/sites/default/files/${icon}-s.png">
-      <p>${weather.ApparentTemperature.Metric.Value} &#8451;</p>
-      <p>${weather.WeatherText}</p>`;
+      <p>${weather.ApparentTemperature.Metric.Value} ©C<br>
+      ${weather.WeatherText}</p>`;
     console.log(weather);
   }
 

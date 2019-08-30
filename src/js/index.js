@@ -80,6 +80,4 @@ async function get1DayForecast(position) {
   }
 }
 
-
-
 export default currentLocation;
