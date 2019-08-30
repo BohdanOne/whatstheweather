@@ -2,12 +2,10 @@ const display = document.getElementById('app');
 
 class UI {
   static displayCurrentLocation(location) {
-    const locationDisplay = document.createElement('div');
-    display.appendChild(locationDisplay);
+    const locationDisplay = document.querySelector('#locationDisplay');
     locationDisplay.innerHTML =
       `<p>You are in:</p>
-      <p>${location}</p>
-      <hr>`
+      <p>${location}</p>`
   }
 
   static displayWeather(weather) {
@@ -18,6 +16,7 @@ class UI {
       `<img src="https://developer.accuweather.com/sites/default/files/${icon}-s.png">
       <p>${weather.ApparentTemperature.Metric.Value} &#8451;</p>
       <p>${weather.WeatherText}</p>`;
+    console.log(weather);
   }
 
   static displayForecast(forecast) {
@@ -27,7 +26,8 @@ class UI {
     forecastDisplay.innerHTML =
       `<img src="https://developer.accuweather.com/sites/default/files/${icon}-s.png">
       <p>${forecast.Temperature.Maximum.Value} &#8451;</p>
-      <p>${forecast.Day.LongPhrase}</p>`;
+      <p>${forecast.Day.LongPhrase}</p>`
+    console.log(forecast);
   }
 };
 
