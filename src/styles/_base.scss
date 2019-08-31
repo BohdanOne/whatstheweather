@@ -1,24 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300&display=swap');
-
 :root{
   font: 20px/1.1 'Josefin Sans', sans-serif;
   box-sizing: border-box;
   color: $main-col;
-}
-
-body {
-  background-color: #efefef;
-  background-image: url('../images/bg-image.jpg');
-  background-repeat: repeat;
-  background-size: cover;
-  z-index: -2;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  justify-items: center;
-  align-content: center;
-  height: 100vh;
-  text-align: center;
 }
 
 *,
@@ -27,5 +10,21 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+body {
+  align-content: center;
+  background-color: #efefef;
+  background-image: url('../images/bg-image.jpg');
+  background-repeat: repeat;
+  background-size: cover;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px 1fr 30px;
+  grid-row-gap: 30px;
+  height: 100vh;
+  justify-items: center;
+  text-align: center;
+  z-index: -2;
 }
 

@@ -10,7 +10,7 @@ class UI {
   static displayWeather(weather) {
     const weatherDisplay = document.createElement('div');
     weatherDisplay.id = weatherDisplay;
-    weatherDisplay.classList.add('display');
+    weatherDisplay.classList.add('display-box');
     display.appendChild(weatherDisplay);
     const icon = weather.WeatherIcon < 10 ? `0${weather.WeatherIcon}`: weather.WeatherIcon;
     weatherDisplay.innerHTML =

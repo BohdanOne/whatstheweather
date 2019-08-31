@@ -1,0 +1,17 @@
+footer {
+  @extend %container;
+  color: $second-col;
+  height: 20px;
+  border: 1px solid;
+  border-radius: 25px;
+  width: 120px;
+  .copyrights {
+    color: inherit;
+    font-size: 0.45rem;
+    text-decoration: none;
+  }
+  &:hover {
+    color: $attention-col;
+    cursor: pointer;
+  }
+}

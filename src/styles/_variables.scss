@@ -1,4 +1,25 @@
+$attention-col: #ffa500;
 $main-col: #50593e;
 $main-col-trans: rgba(80, 89, 62, .9);
 $second-col: #e5e5e5;
 $second-col-trans: rgba(229, 229, 229, .9);
+
+%box {
+  border-radius: 25px;
+  margin-bottom: 20px;
+  min-width: 220px;
+  padding: 10px;
+}
+
+%container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+%reset {
+  border: none;
+  font: inherit;
+  outline: none;
+}
