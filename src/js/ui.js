@@ -31,7 +31,7 @@ class UI {
     const icon = weather.WeatherIcon < 10 ? `0${weather.WeatherIcon}`: weather.WeatherIcon;
     weatherDisplay.innerHTML =
       `<img src="https://developer.accuweather.com/sites/default/files/${icon}-s.png">
-      <p>${weather.ApparentTemperature.Metric.Value} ©C<br>
+      <p>${weather.ApparentTemperature.Metric.Value} °C<br>
       ${weather.WeatherText}</p>`;
     console.log(weather);
   }
