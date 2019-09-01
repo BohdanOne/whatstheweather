@@ -11,7 +11,10 @@
       font-size: .7rem;
       line-height: 1.1;
       div {
-        margin-bottom: 15px;
+        padding-bottom: 12px;
+        &:last-of-type {
+          padding-bottom: 0;
+        }
       }
       h3 {
         font-weight: 400;
@@ -33,6 +36,9 @@
         color: $attention-col;
         cursor: pointer;
       }
+    }
+    #back {
+      margin-bottom: 0;
     }
   }
   #cityInput {
