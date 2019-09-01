@@ -1,5 +1,5 @@
 import './styles/index.scss'
-import './js/index';
-import currentLocation from './js/index';
+import currentLocation from './js/currentLocation';
 
 currentLocation('current');
+

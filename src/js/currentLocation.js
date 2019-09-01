@@ -12,6 +12,7 @@ const forecastURL = 'http://dataservice.accuweather.com/forecasts/v1/daily/1day/
 
 async function currentLocation(option) {
   try {
+    UI.renderWelcomeScreen();
     const locationDisplay = document.querySelector('#locationDisplay');
     locationDisplay.innerHTML =
       `<p> Locating...</p>
@@ -57,27 +58,38 @@ async function getCurrentWeather(position) {
     // Display Current Weather in App
     UI.displayWeather(currentWeather);
 
-  } catch(err) {
-    console.log(err);
-  }
-}
-
-async function get1DayForecast(position) {
-  try {
-    // Obtain LocationKey for AccuWeather API
-    const key = await getLocationKeyFromGeo(position);
-
-    // Obtain forecast from AccuWeather API
-    const forecast = await axios.get(`${forecastURL}${key}?apikey=${APIKEY}&metric=true&details=true`)
-                      .then(res => res.data.DailyForecasts[0]);
-    console.log(forecast);
-
-    // Display forecast in App
-    UI.displayForecast(forecast);
+    // listen for clicks on buttons
+    document.querySelector('#details').addEventListener('click', currentDetails);
+    document.querySelector('#forecasts').addEventListener('click', () => getForecasts(key));
 
   } catch(err) {
     console.log(err);
   }
 }
+
+function currentDetails() {
+  console.log('Detailsbutton clicked');
+};
+
+function getForecasts(key) {
+  console.log('Forecast for location key: '+ key);
+}
+// async function get1DayForecast(position) {
+//   try {
+//     // Obtain LocationKey for AccuWeather API
+//     const key = await getLocationKeyFromGeo(position);
+
+//     // Obtain forecast from AccuWeather API
+//     const forecast = await axios.get(`${forecastURL}${key}?apikey=${APIKEY}&metric=true&details=true`)
+//                       .then(res => res.data.DailyForecasts[0]);
+//     console.log(forecast);
+
+//     // Display forecast in App
+//     UI.displayForecast(forecast);
+
+//   } catch(err) {
+//     console.log(err);
+//   }
+// }
 
 export default currentLocation;
