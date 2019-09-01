@@ -59,17 +59,13 @@ async function getCurrentWeather(position) {
     UI.displayWeather(currentWeather);
 
     // listen for clicks on buttons
-    document.querySelector('#details').addEventListener('click', currentDetails);
+    document.querySelector('#details').addEventListener('click', () => UI.displayCurrentDetails(currentWeather));
     document.querySelector('#forecasts').addEventListener('click', () => getForecasts(key));
 
   } catch(err) {
     console.log(err);
   }
 }
-
-function currentDetails() {
-  console.log('Detailsbutton clicked');
-};
 
 function getForecasts(key) {
   console.log('Forecast for location key: '+ key);
