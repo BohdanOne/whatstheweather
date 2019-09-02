@@ -84,7 +84,7 @@ class UI {
       <h3>Ultraviolet Radiation</h3>
       <p>${weather.UVIndexText}</p>`
     weatherDisplay.appendChild(uv);
-    // activate go back button
+    // activate 'go back' button
     document.querySelector('#back').addEventListener('click', () => currentLocation('current'));
   }
 
@@ -96,7 +96,6 @@ class UI {
       <button class="btn" id="back">go back</button>
     </section>
     `;
-    
   }
 
   // static displayForecast(forecast) {

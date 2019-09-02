@@ -46,6 +46,7 @@
     @extend %box;
     @extend %reset;
     background-color: $second-col-trans;
+    text-align: center;
     &::placeholder {
       color: #000;
       text-align: center;

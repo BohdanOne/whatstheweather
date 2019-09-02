@@ -19,12 +19,7 @@ async function currentLocation(option) {
       <div class="sp spinner"></div>`;
     // Push Geolocalisation coordinates to chosen functions
     if (navigator.geolocation) {
-      if(option === 'current') {
-        await navigator.geolocation.getCurrentPosition(getCurrentWeather);
-      }
-      if(option === 'forecast1') {
-        await navigator.geolocation.getCurrentPosition(get1DayForecast);
-      }
+      await navigator.geolocation.getCurrentPosition(getCurrentWeather);
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
@@ -34,16 +29,20 @@ async function currentLocation(option) {
 }
 
 async function getLocationKeyFromGeo(position) {
-  const lat = position.coords.latitude;
-  const long = position.coords.longitude;
-  const location = await axios.get(`${geopositionURL}?q=${lat},${long}&apikey=${APIKEY}`)
-    .then(res => res.data)
-  const key = location.Key;
+  try {
+    const lat = position.coords.latitude;
+    const long = position.coords.longitude;
+    const location = await axios.get(`${geopositionURL}?q=${lat},${long}&apikey=${APIKEY}`)
+      .then(res => res.data);
+    const key = location.Key;
 
-  // Display Location Name in App
-  const locationName = location.LocalizedName;
-  UI.displayCurrentLocation(locationName);
-  return key;
+    // Display Location Name in App
+    const locationName = location.LocalizedName;
+    UI.displayCurrentLocation(locationName);
+    return key;
+  } catch(err) {
+    console.log(err);
+  }
 }
 
 async function getCurrentWeather(position) {
@@ -79,7 +78,7 @@ async function get12hoursForecast(key) {
   try {
     // Obtain forecast from AccuWeather API
     const forecast = await axios.get(`${hoursForecastURL}${key}?apikey=${APIKEY}&metric=true&details=true`)
-                      .then(res => res.data);
+      .then(res => res.data);
     console.log(forecast);
 
     // Display forecast in App
@@ -94,7 +93,7 @@ async function get5daysForecast(key) {
   try {
     // Obtain forecast from AccuWeather API
     const forecast = await axios.get(`${daysForecastURL}${key}?apikey=${APIKEY}&metric=true&details=true`)
-                      .then(res => res.data);
+      .then(res => res.data.DailyForecasts);
     console.log(forecast);
 
     // Display forecast in App
