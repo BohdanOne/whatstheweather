@@ -1,5 +1,6 @@
 #app {
   @extend %container;
+  height: calc(100vh - 140);
   #display {
     @extend %container;
     .display-box {
