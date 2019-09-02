@@ -7,8 +7,8 @@ const APIKEY = 'ErBJkb4Ssgqc7qlUq8IQgAd80X1eZqix';
 const geopositionURL = 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search';
 
 const currentURL = 'http://dataservice.accuweather.com/currentconditions/v1/';
-const forecastURL = 'http://dataservice.accuweather.com/forecasts/v1/daily/1day/';
-
+const hoursForecastURL = 'http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/';
+const daysForecastURL = 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/';
 
 async function currentLocation(option) {
   try {
@@ -68,24 +68,41 @@ async function getCurrentWeather(position) {
 }
 
 function getForecasts(key) {
-  console.log('Forecast for location key: '+ key);
+  UI.displayForecastsMenu();
+  // activate buttons
+  document.querySelector('#back').addEventListener('click', () => currentLocation('current'));
+  document.querySelector('#hours').addEventListener('click', () => get12hoursForecast(key));
+  document.querySelector('#days').addEventListener('click', () => get5daysForecast(key));
 }
-// async function get1DayForecast(position) {
-//   try {
-//     // Obtain LocationKey for AccuWeather API
-//     const key = await getLocationKeyFromGeo(position);
 
-//     // Obtain forecast from AccuWeather API
-//     const forecast = await axios.get(`${forecastURL}${key}?apikey=${APIKEY}&metric=true&details=true`)
-//                       .then(res => res.data.DailyForecasts[0]);
-//     console.log(forecast);
+async function get12hoursForecast(key) {
+  try {
+    // Obtain forecast from AccuWeather API
+    const forecast = await axios.get(`${hoursForecastURL}${key}?apikey=${APIKEY}&metric=true&details=true`)
+                      .then(res => res.data);
+    console.log(forecast);
 
-//     // Display forecast in App
-//     UI.displayForecast(forecast);
+    // Display forecast in App
+    // UI.displayHoursForecast(forecast)
 
-//   } catch(err) {
-//     console.log(err);
-//   }
-// }
+  } catch(err) {
+    console.log(err);
+  }
+};
+
+async function get5daysForecast(key) {
+  try {
+    // Obtain forecast from AccuWeather API
+    const forecast = await axios.get(`${daysForecastURL}${key}?apikey=${APIKEY}&metric=true&details=true`)
+                      .then(res => res.data);
+    console.log(forecast);
+
+    // Display forecast in App
+    // UI.displayDaysForecast(forecast)
+
+  } catch(err) {
+    console.log(err);
+  }
+};
 
 export default currentLocation;

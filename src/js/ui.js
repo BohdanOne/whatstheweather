@@ -1,8 +1,8 @@
 import currentLocation from './currentLocation';
+const app = document.getElementById('app');
 
 class UI {
   static renderWelcomeScreen() {
-    const app = document.getElementById('app');
     app.innerHTML = `
     <section id="display">
       <div id="locationDisplay" class="display-box"></div>
@@ -37,7 +37,6 @@ class UI {
   }
 
   static displayCurrentDetails(weather) {
-    const app = document.getElementById('app');
     app.innerHTML = `
     <section id="display">
       <div id="weatherDetails" class="display-box"></div>
@@ -87,8 +86,17 @@ class UI {
     weatherDisplay.appendChild(uv);
     // activate go back button
     document.querySelector('#back').addEventListener('click', () => currentLocation('current'));
+  }
 
-
+  static displayForecastsMenu() {
+    app.innerHTML = `
+    <section id="buttons">
+      <button class="btn" id="hours">next 12 hours</button>
+      <button class="btn" id="days">next 5 days</button>
+      <button class="btn" id="back">go back</button>
+    </section>
+    `;
+    
   }
 
   // static displayForecast(forecast) {
