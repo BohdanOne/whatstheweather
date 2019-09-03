@@ -98,18 +98,70 @@ class UI {
     `;
   }
 
-  // static displayForecast(forecast) {
-  //   const display = document.querySelector('#display');
-  //   const forecastDisplay = document.createElement('div');
-  //   forecastDisplay.id = 'forecastDisplay';
-  //   display.appendChild(forecastDisplay);
-  //   const icon = forecast.Day.Icon < 10 ? `0${forecast.Day.Icon}`: forecast.Day.Icon;
-  //   forecastDisplay.innerHTML =
-  //     `<img src="https://developer.accuweather.com/sites/default/files/${icon}-s.png">
-  //     <p>${forecast.Temperature.Maximum.Value} &#8451;</p>
-  //     <p>${forecast.Day.LongPhrase}</p>`
-  //   console.log(forecast);
-  // }
+  static displayHoursForecast(forecast, hour) {
+    const time = parseInt(forecast[hour].DateTime.slice(11, 13));
+    app.innerHTML = `
+    <section id="display">
+      <div id="weatherDetails" class="display-box">
+        <nav>
+          <button class="nav-btn" id="prev">prev</button>
+          <div id="hoursDisplay">${time}-${time+1}</div>
+          <button class="nav-btn" id="next">next</button>
+        </nav>
+      </button>
+      </section>
+      <section id="buttons">
+      <button class="btn" id="back">go back</button>
+      </section>
+    `;
+    const forecastDisplay = document.querySelector('#weatherDetails');
+    const icon = forecast[hour].WeatherIcon < 10 ? `0${forecast[hour].WeatherIcon}`: forecast[hour].WeatherIcon;
+    const iconImg = document.createElement('img');
+    iconImg.src = `https://developer.accuweather.com/sites/default/files/${icon}-s.png`;
+    iconImg.style.paddingTop = '30px';
+    forecastDisplay.appendChild(iconImg);
+    const phrase = document.createElement('div');
+    phrase.innerHTML = `
+      <p>${forecast[hour].Temperature.Value} °C
+      <br>${forecast[hour].IconPhrase}</p>`;
+    phrase.style.fontSize = '1rem';
+    phrase.firstElementChild.style.textTransform = 'none';
+    phrase.style.paddingBottom = '30px';
+    forecastDisplay.appendChild(phrase);
+    const wind = document.createElement('div');
+    wind.innerHTML = `
+      <h3>Wind</h3>
+      <p>direction: ${forecast[hour].Wind.Direction.English}
+      <br>speed: ${forecast[hour].Wind.Speed.Value} km/h
+      <br>gust: ${forecast[hour].WindGust.Speed.Value} km/h </p>`
+    forecastDisplay.appendChild(wind);
+    const cloud = document.createElement('div');
+    cloud.innerHTML = `
+      <h3>Cloud Cover</h3>
+      <p>${forecast[hour].CloudCover || 0} %</p>`
+    forecastDisplay.appendChild(cloud);
+    const rain = document.createElement('div');
+    rain.innerHTML = `
+      <h3>Rain</h3>
+      <p>${forecast[hour].Rain.Value} mm
+      <br>probability: ${forecast[hour].RainProbability}</p>`
+    forecastDisplay.appendChild(rain);
+    const snow = document.createElement('div');
+    snow.innerHTML = `
+      <h3>Snow</h3>
+      <p>${forecast[hour].Snow.Value} mm
+      <br>probability: ${forecast[hour].SnowProbability}</p>`
+    forecastDisplay.appendChild(snow);
+    // activate buttons
+    document.querySelector('#back').addEventListener('click', () => currentLocation('current'));
+    // TODO: handle swipes
+    if(hour < 11) {
+      document.querySelector('#next').addEventListener('click', () => UI.displayHoursForecast(forecast, hour+1));
+    }
+    if(hour > 0) {
+      document.querySelector('#prev').addEventListener('click', () => UI.displayHoursForecast(forecast, hour-1));
+    }
+  }
 };
 
 export default UI;

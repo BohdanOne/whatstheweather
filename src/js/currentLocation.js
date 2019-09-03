@@ -79,10 +79,9 @@ async function get12hoursForecast(key) {
     // Obtain forecast from AccuWeather API
     const forecast = await axios.get(`${hoursForecastURL}${key}?apikey=${APIKEY}&metric=true&details=true`)
       .then(res => res.data);
-    console.log(forecast);
 
     // Display forecast in App
-    // UI.displayHoursForecast(forecast)
+    UI.displayHoursForecast(forecast, 0)
 
   } catch(err) {
     console.log(err);
