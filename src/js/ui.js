@@ -149,7 +149,7 @@ class UI {
     const snow = document.createElement('div');
     snow.innerHTML = `
       <h3>Snow</h3>
-      <p>${forecast[hour].Snow.Value} mm
+      <p>${forecast[hour].Snow.Value} cm
       <br>probability: ${forecast[hour].SnowProbability}</p>`
     forecastDisplay.appendChild(snow);
     // activate buttons
