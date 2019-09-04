@@ -164,7 +164,6 @@ class UI {
   }
 
   static displayDaysForecast(forecast, day) {
-    console.log(forecast);
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const weekday = (new Date(forecast[day].Date)).getDay();
     app.innerHTML = `
@@ -175,9 +174,18 @@ class UI {
           <div id="dayDisplay">${days[weekday]}</div>
           <button class="nav-btn-d" id="next">next</button>
         </nav>
-
-        <div style="height: 300px"></div>
-
+        <img id="weatherIcon">
+        <div id="temp">
+          <p>${forecast[day].Temperature.Minimum.Value} - ${forecast[day].Temperature.Maximum.Value} °C</p>
+        </div>
+        <div id="phrase">
+        </div>
+        <div id="wind">
+        </div>
+        <div id="rain">
+        </div>
+        <div id="snow">
+        </div>
         <nav class="bottom">
           <button class="day-night-btn" id="day">day</button>
           <button class="day-night-btn" id="night">night</button>
@@ -188,12 +196,12 @@ class UI {
       <button class="btn" id="back">go back</button>
     </section>
     `;
-    UI.displayDayForecast();
+    UI.displayDailyForecast(forecast[day], 'Day');
     // activate buttons
     document.querySelector('#back').addEventListener('click', () => currentLocation('current'));
 
-    document.querySelector('#day').addEventListener('click', () => UI.displayDayForecast());
-    document.querySelector('#night').addEventListener('click', () => UI.displayNightForecast());
+    document.querySelector('#day').addEventListener('click', () => UI.displayDailyForecast(forecast[day], 'Day'));
+    document.querySelector('#night').addEventListener('click', () => UI.displayDailyForecast(forecast[day], 'Night'));
 
     // TODO: handle swipes
     if(day < 4) {
@@ -204,16 +212,47 @@ class UI {
     }
   }
 
-  static displayDayForecast() {
-    document.querySelector('#day').classList.add('active');
-    document.querySelector('#night').classList.remove('active');
-    console.log('Prognoza na dzien');
-  }
-
-  static displayNightForecast() {
-    console.log('Prognoza na noc');
-    document.querySelector('#night').classList.add('active');
-    document.querySelector('#day').classList.remove('active');
+  static displayDailyForecast(forecast, time) {
+    // higlight button in bottom nav
+    if(time === 'Day') {
+      document.querySelector('#day').classList.add('active');
+      document.querySelector('#night').classList.remove('active');
+    } else {
+      document.querySelector('#night').classList.add('active');
+      document.querySelector('#day').classList.remove('active');
+    }
+    // display weather info
+    const temperature = document.querySelector('#temp');
+    temperature.firstElementChild.style.fontSize = '1rem';
+    temperature.style.paddingBottom = '0';
+    temperature.firstElementChild.style.textTransform = 'none';
+    const icon = forecast[time].Icon < 10 ? `0${forecast[time].Icon}`: forecast[time].Icon;
+    const weatherIcon = document.querySelector('#weatherIcon');
+    weatherIcon.src = `https://developer.accuweather.com/sites/default/files/${icon}-s.png`;
+    weatherIcon.style.paddingTop = '30px';
+    const phrase = document.querySelector('#phrase');
+    phrase.innerHTML = `<p>${forecast[time].LongPhrase}</p>`;
+    phrase.style.fontSize = '.8rem';
+    phrase.style.maxWidth = '220px';
+    phrase.firstElementChild.style.textTransform = 'none';
+    phrase.style.paddingBottom = '30px';
+    const wind = document.querySelector('#wind');
+    wind.innerHTML = `
+      <h3>Wind</h3>
+      <p>direction: ${forecast[time].Wind.Direction.English}
+      <br>speed: ${forecast[time].Wind.Speed.Value} km/h
+      <br>gust: ${forecast[time].WindGust.Speed.Value} km/h </p>`
+    const rain = document.querySelector('#rain');
+    rain.innerHTML = `
+      <h3>Rain</h3>
+      <p>${forecast[time].Rain.Value} mm
+      <br>probability: ${forecast[time].RainProbability}</p>`
+    const snow = document.querySelector('#snow');
+    snow.innerHTML = `
+      <h3>Snow</h3>
+      <p>${forecast[time].Snow.Value} cm
+      <br>probability: ${forecast[time].SnowProbability}</p>`
+    snow.style.paddingBottom = '30px';
   }
 };
 
