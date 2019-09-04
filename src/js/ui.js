@@ -103,16 +103,16 @@ class UI {
     app.innerHTML = `
     <section id="display">
       <div id="weatherDetails" class="display-box">
-        <nav>
+        <nav class="top">
           <button class="nav-btn" id="prev">prev</button>
           <div id="hoursDisplay">${time}-${time+1}</div>
           <button class="nav-btn" id="next">next</button>
         </nav>
-      </button>
-      </section>
-      <section id="buttons">
+      </div>
+    </section>
+    <section id="buttons">
       <button class="btn" id="back">go back</button>
-      </section>
+    </section>
     `;
     const forecastDisplay = document.querySelector('#weatherDetails');
     const icon = forecast[hour].WeatherIcon < 10 ? `0${forecast[hour].WeatherIcon}`: forecast[hour].WeatherIcon;
@@ -161,6 +161,59 @@ class UI {
     if(hour > 0) {
       document.querySelector('#prev').addEventListener('click', () => UI.displayHoursForecast(forecast, hour-1));
     }
+  }
+
+  static displayDaysForecast(forecast, day) {
+    console.log(forecast);
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const weekday = (new Date(forecast[day].Date)).getDay();
+    app.innerHTML = `
+    <section id="display">
+      <div id="weatherDetails" class="display-box">
+        <nav class="top">
+          <button class="nav-btn-d" id="prev">prev</button>
+          <div id="dayDisplay">${days[weekday]}</div>
+          <button class="nav-btn-d" id="next">next</button>
+        </nav>
+
+        <div style="height: 300px"></div>
+
+        <nav class="bottom">
+          <button class="day-night-btn" id="day">day</button>
+          <button class="day-night-btn" id="night">night</button>
+        </nav>
+      </div>
+    </section>
+    <section id="buttons">
+      <button class="btn" id="back">go back</button>
+    </section>
+    `;
+    UI.displayDayForecast();
+    // activate buttons
+    document.querySelector('#back').addEventListener('click', () => currentLocation('current'));
+
+    document.querySelector('#day').addEventListener('click', () => UI.displayDayForecast());
+    document.querySelector('#night').addEventListener('click', () => UI.displayNightForecast());
+
+    // TODO: handle swipes
+    if(day < 4) {
+      document.querySelector('#next').addEventListener('click', () => UI.displayDaysForecast(forecast, day+1));
+    }
+    if(day > 0) {
+      document.querySelector('#prev').addEventListener('click', () => UI.displayDaysForecast(forecast, day-1));
+    }
+  }
+
+  static displayDayForecast() {
+    document.querySelector('#day').classList.add('active');
+    document.querySelector('#night').classList.remove('active');
+    console.log('Prognoza na dzien');
+  }
+
+  static displayNightForecast() {
+    console.log('Prognoza na noc');
+    document.querySelector('#night').classList.add('active');
+    document.querySelector('#day').classList.remove('active');
   }
 };
 

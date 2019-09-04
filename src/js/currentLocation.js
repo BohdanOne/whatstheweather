@@ -93,10 +93,9 @@ async function get5daysForecast(key) {
     // Obtain forecast from AccuWeather API
     const forecast = await axios.get(`${daysForecastURL}${key}?apikey=${APIKEY}&metric=true&details=true`)
       .then(res => res.data.DailyForecasts);
-    console.log(forecast);
 
     // Display forecast in App
-    // UI.displayDaysForecast(forecast)
+    UI.displayDaysForecast(forecast, 0)
 
   } catch(err) {
     console.log(err);

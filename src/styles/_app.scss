@@ -25,7 +25,7 @@
       p {
         text-transform: lowercase;
       }
-      nav {
+      nav.top {
         align-items: center;
         display: flex;
         font-size: 1rem;
@@ -53,11 +53,47 @@
             cursor: pointer;
           }
         }
+        .nav-btn-d {
+          @extend .nav-btn;
+          width: 60px;
+        }
         #prev {
           border-top-left-radius: 25px;
         }
         #next {
           border-top-right-radius: 25px;
+        }
+      }
+      nav.bottom {
+        display: flex;
+        font-size: 1rem;
+        height: 30px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        .day-night-btn {
+          @extend %reset;
+          background-color: $main-col-trans;
+          color: $second-col;
+          height: 30px;
+          width: 50%;
+          &:hover {
+            color: $attention-col;
+            cursor: pointer;
+          }
+        }
+        .active {
+          color: $attention-col;
+          &:hover {
+            color: $second-col;
+          }
+        }
+        #day {
+          border-bottom-left-radius: 25px;
+        }
+        #night {
+          border-bottom-right-radius: 25px;
         }
       }
     }
