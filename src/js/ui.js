@@ -1,11 +1,16 @@
 import currentLocation from './currentLocation';
+
 const app = document.getElementById('app');
+const locationDisplay = document.querySelector('#locationDisplay');
 
 class UI {
   static renderWelcomeScreen() {
     app.innerHTML = `
     <section id="display">
-      <div id="locationDisplay" class="display-box"></div>
+      <div id="locationDisplay" class="display-box">
+        <p> Locating...</p>
+        <div class="sp spinner"></div>
+      </div>
     </section>
     <section id="buttons">
       <button class="btn" id="details">see details</button>
@@ -17,10 +22,10 @@ class UI {
     `;
   }
 
-  static displayCurrentLocation(location) {
+  static displayLocation(location) {
     const locationDisplay = document.querySelector('#locationDisplay');
     locationDisplay.innerHTML =
-    `<p>You are in:<br>${location}</p>`
+    `<p>Weather in:<br>${location}</p>`
   }
 
   static displayWeather(weather) {
