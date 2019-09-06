@@ -4,46 +4,11 @@ import UI from './ui';
 const APIKEY = 'ErBJkb4Ssgqc7qlUq8IQgAd80X1eZqix';
 
 // AccuWeather API endpoints
-const geopositionURL = 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search';
 
 const currentURL = 'http://dataservice.accuweather.com/currentconditions/v1/';
 const hoursForecastURL = 'http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/';
 const daysForecastURL = 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/';
 
-async function currentLocation(option) {
-  try {
-    UI.renderWelcomeScreen();
-    const locationDisplay = document.querySelector('#locationDisplay');
-    locationDisplay.innerHTML =
-      `<p> Locating...</p>
-      <div class="sp spinner"></div>`;
-    // Push Geolocalisation coordinates to chosen functions
-    if (navigator.geolocation) {
-      await navigator.geolocation.getCurrentPosition(getCurrentWeather);
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
-  } catch(err) {
-    console.log(err);
-  }
-}
-
-async function getLocationKeyFromGeo(position) {
-  try {
-    const lat = position.coords.latitude;
-    const long = position.coords.longitude;
-    const location = await axios.get(`${geopositionURL}?q=${lat},${long}&apikey=${APIKEY}`)
-      .then(res => res.data);
-    const key = location.Key;
-
-    // Display Location Name in App
-    const locationName = location.LocalizedName;
-    UI.displayCurrentLocation(locationName);
-    return key;
-  } catch(err) {
-    console.log(err);
-  }
-}
 
 async function getCurrentWeather(position) {
   try {
@@ -101,5 +66,3 @@ async function get5daysForecast(key) {
     console.log(err);
   }
 };
-
-export default currentLocation;

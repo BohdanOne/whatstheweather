@@ -1,5 +1,3 @@
-import currentLocation from './currentLocation';
-
 const app = document.getElementById('app');
 const locationDisplay = document.querySelector('#locationDisplay');
 

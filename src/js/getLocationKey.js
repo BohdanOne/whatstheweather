@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import currentLocation from './currentLocation';
 import UI from './ui'
 
 const APIKEY = 'ErBJkb4Ssgqc7qlUq8IQgAd80X1eZqix';
@@ -9,55 +8,55 @@ const geopositionURL = 'http://dataservice.accuweather.com/locations/v1/cities/g
 
 // Location based on Geoposition
 
-async function currentLocation(option) {
+async function findCurrentLocation(option) {
   try {
     if (navigator.geolocation) {
-      await navigator.geolocation.getCurrentPosition(getLocationKeyFromGeo);
+      await navigator.geolocation.getCurrentPosition(position => {
+        const latlong = `${position.coords.latitude},${position.coords.longitude}`;
+        getLocationKeyGeo(latlong);
+      });
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
   } catch(err) {
     console.log(err);
   }
-}
+};
 
-async function getLocationKeyFromGeo(position) {
+async function getLocationKeyGeo(coords) {
   try {
-    const lat = position.coords.latitude;
-    const long = position.coords.longitude;
-    const location = await axios.get(`${geopositionURL}?q=${lat},${long}&apikey=${APIKEY}`)
-      .then(res => res.data);
-    const key = location.Key;
+    const location = await axios.get(`${geopositionURL}?q=${coords}&apikey=${APIKEY}`)
+    .then(res => res.data);
 
-    // Display Location Name in App
-    const locationName = location.LocalizedName;
-    UI.displayLocation(locationName);
-    return key;
+    UI.displayLocation(location.LocalizedName);
+
+    return location.Key;
   } catch(err) {
     console.log(err);
   }
 }
 
-// Location Search basedon User Input
+// Location Search based on User Input
 
 function searchLocation(key) {
   if(key === 13) {
-    getLocationKeyFromInput(event.target.value);
+    getLocationKey(event.target.value);
   };
 };
 
-async function getLocationKeyFromInput(input) {
+async function getLocationKey(input) {
   try {
     const location = await axios.get(`${textSearchURL}?q=${input}&apikey=${APIKEY}`)
       .then(res => res.data[0]);
-    const key = location.Key;
-    const locationName = location.LocalizedName;
-    UI.displayLocation(locationName);
-
-    return key;
+    if(location) {
+      UI.displayLocation(location.LocalizedName);
+      return location.Key;
+    } else {
+      UI.displayLocation('Place not found');
+    }
   } catch(err) {
     console.log(err);
   }
 }
 
-export { currentLocation, searchLocation };
+export { findCurrentLocation, searchLocation };
