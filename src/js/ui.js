@@ -1,37 +1,18 @@
 const app = document.getElementById('app');
-const locationDisplay = document.querySelector('#locationDisplay');
+const display = document.querySelector('.display');
+const locationDisplay = document.getElementById('locationDisplay');
+const weatherDisplay = document.getElementById('weatherDisplay');
+const welcomeScreen = document.getElementById('welcomeScreen');
+const detailsScreen = document.getElementById('detailsScreen');
+const weatherDetails = document.getElementById('weatherDetails')
 
 class UI {
-  static renderWelcomeScreen() {
-    app.innerHTML = `
-    <section id="display">
-      <div id="locationDisplay" class="display-box">
-        <p> Locating...</p>
-        <div class="sp spinner"></div>
-      </div>
-    </section>
-    <section id="buttons">
-      <button class="btn" id="details">see details</button>
-      <button class="btn" id="forecasts">check forecasts</button>
-    </section>
-    <section id="searchInput">
-      <input type="text" name="city" id="cityInput" placeholder="search in other location">
-    </section>
-    `;
-  }
 
   static displayLocation(location) {
-    const locationDisplay = document.querySelector('#locationDisplay');
-    locationDisplay.innerHTML =
-    `<p>Weather in:<br>${location}</p>`
+    locationDisplay.innerHTML = `<p>Weather in:<br>${location}</p>`
   }
 
   static displayWeather(weather) {
-    const display = document.querySelector('#display');
-    const weatherDisplay = document.createElement('div');
-    weatherDisplay.id = 'weatherDisplay';
-    weatherDisplay.classList.add('display-box');
-    display.appendChild(weatherDisplay);
     const icon = weather.WeatherIcon < 10 ? `0${weather.WeatherIcon}`: weather.WeatherIcon;
     weatherDisplay.innerHTML =
     `<img src="https://developer.accuweather.com/sites/default/files/${icon}-s.png">
@@ -39,56 +20,63 @@ class UI {
     ${weather.WeatherText}</p>`;
   }
 
-  static displayCurrentDetails(weather) {
-    app.innerHTML = `
-    <section id="display">
-      <div id="weatherDetails" class="display-box"></div>
-    </section>
-    <section id="buttons">
-      <button class="btn" id="back">go back</button>
-    </section>
-    `;
-    const weatherDisplay = document.querySelector('#weatherDetails');
-    const temperature = document.createElement('div');
-    temperature.innerHTML = `
-      <h3>Temperature</h3>
-      <p>actual: ${weather.Temperature.Metric.Value} °C
-      <br>apparent: ${weather.ApparentTemperature.Metric.Value} °C</p>`
-    weatherDisplay.appendChild(temperature);
-    const precip = document.createElement('div');
-    precip.innerHTML = `
-      <h3>Precipitation</h3>
-      <p>${weather.PrecipitationType || ''} ${weather.Precip1hr.Metric.Value} mm</p>`
-    weatherDisplay.appendChild(precip);
-    const wind = document.createElement('div');
-    wind.innerHTML = `
-      <h3>Wind</h3>
-      <p>direction: ${weather.Wind.Direction.English}
-      <br>speed: ${weather.Wind.Speed.Metric.Value} km/h
-      <br>gust: ${weather.WindGust.Speed.Metric.Value} km/h </p>`
-    weatherDisplay.appendChild(wind);
-    const cloud = document.createElement('div');
-    cloud.innerHTML = `
-      <h3>Cloud Cover</h3>
-      <p>${weather.CloudCover || 0} %</p>`
-    weatherDisplay.appendChild(cloud);
-    const pressure = document.createElement('div');
-    pressure.innerHTML = `
-      <h3>Pressure</h3>
-      <p>${weather.Pressure.Metric.Value} mb ${weather.PressureTendency.LocalizedText}</p>`
-    weatherDisplay.appendChild(pressure);
-    const visibility = document.createElement('div');
-    visibility.innerHTML = `
-      <h3>Visibility</h3>
-      <p>${weather.Visibility.Metric.Value} km</p>`
-    weatherDisplay.appendChild(visibility);
-    const uv = document.createElement('div');
-    uv.innerHTML = `
-      <h3>Ultraviolet Radiation</h3>
-      <p>${weather.UVIndexText}</p>`
-    weatherDisplay.appendChild(uv);
+  static hideWelcomeScreen(){
+    welcomeScreen.style.opacity = '0';
+    welcomeScreen.addEventListener('transitionend', () => welcomeScreen.hidden = true);
+  }
+
+  static showWelcomeScreen(){
+    welcomeScreen.hidden = false;
+    welcomeScreen.style.opacity = '1';
+
+  }
+
+  static hideDetailsScreen(){
+    detailsScreen.style.opacity = '0';
+    detailsScreen.addEventListener('transitionend', () => detailsScreen.hidden = true);
+  }
+
+  static displayDetails(weather) {
+    this.hideWelcomeScreen();
+    detailsScreen.hidden = false;
+    detailsScreen.style.opacity = '1';
+    weatherDetails.innerHTML = `
+      <div>
+        <h3>Temperature</h3>
+        <p>actual: ${weather.Temperature.Metric.Value} °C
+        <br>apparent: ${weather.ApparentTemperature.Metric.Value} °C</p>
+      </div>
+      <div>
+        <h3>Precipitation</h3>
+        <p>${weather.PrecipitationType || ''} ${weather.Precip1hr.Metric.Value} mm</p>
+      </div>
+      <div>
+        <h3>Wind</h3>
+        <p>direction: ${weather.Wind.Direction.English}
+        <br>speed: ${weather.Wind.Speed.Metric.Value} km/h
+        <br>gust: ${weather.WindGust.Speed.Metric.Value} km/h </p>
+      </div>
+      <div>
+        <h3>Cloud Cover</h3>
+        <p>${weather.CloudCover || 0} %</p>
+        </div>
+      <div>
+        <h3>Pressure</h3>
+        <p>${weather.Pressure.Metric.Value} mb ${weather.PressureTendency.LocalizedText}</p>
+      </div>
+      <div>
+        <h3>Visibility</h3>
+        <p>${weather.Visibility.Metric.Value} km</p>
+      </div>
+      <div>
+        <h3>Ultraviolet Radiation</h3>
+        <p>${weather.UVIndexText}</p>
+      </div>`
     // activate 'go back' button
-    document.querySelector('#back').addEventListener('click', () => currentLocation('current'));
+    document.querySelector('#backToWelcome').addEventListener('click', () => {
+      this.hideDetailsScreen();
+      this.showWelcomeScreen();
+    });
   }
 
   static displayForecastsMenu() {

@@ -1,11 +1,5 @@
-import './styles/index.scss'
-import { findCurrentLocation, searchLocation } from './js/getLocationKey';
-import UI from './js/ui';
+import './styles/index.scss';
+import { welcomeScreen } from './js/welcomeScreen';
 
-UI.renderWelcomeScreen();
+welcomeScreen();
 
-findCurrentLocation();
-
-document.querySelector('#searchInput').addEventListener('keyup', event => {
-  searchLocation(event.which);
-});

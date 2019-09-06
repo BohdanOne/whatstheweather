@@ -1,14 +1,16 @@
-import axios from 'axios';
 import UI from './ui'
+import axios from 'axios';
+import { getCurrentWeather } from './getCurrentWeather';
+import { getForecasts } from './getForecasts';
 
 const APIKEY = 'ErBJkb4Ssgqc7qlUq8IQgAd80X1eZqix';
 
-const textSearchURL = `http://dataservice.accuweather.com/locations/v1/search`;
 const geopositionURL = 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search';
+const textSearchURL = `http://dataservice.accuweather.com/locations/v1/search`;
 
 // Location based on Geoposition
 
-async function findCurrentLocation(option) {
+export async function findCurrentLocation(option) {
   try {
     if (navigator.geolocation) {
       await navigator.geolocation.getCurrentPosition(position => {
@@ -21,7 +23,7 @@ async function findCurrentLocation(option) {
   } catch(err) {
     console.log(err);
   }
-};
+}
 
 async function getLocationKeyGeo(coords) {
   try {
@@ -29,8 +31,9 @@ async function getLocationKeyGeo(coords) {
     .then(res => res.data);
 
     UI.displayLocation(location.LocalizedName);
-
-    return location.Key;
+    getCurrentWeather(location.Key);
+    document.getElementById('forecastsBtn').addEventListener('click', () => getForecasts(location.Key))
+    // return location.Key;
   } catch(err) {
     console.log(err);
   }
@@ -38,19 +41,21 @@ async function getLocationKeyGeo(coords) {
 
 // Location Search based on User Input
 
-function searchLocation(key) {
+export function searchLocation(key) {
   if(key === 13) {
     getLocationKey(event.target.value);
-  };
-};
+  }
+}
 
-async function getLocationKey(input) {
+export async function getLocationKey(input) {
   try {
     const location = await axios.get(`${textSearchURL}?q=${input}&apikey=${APIKEY}`)
       .then(res => res.data[0]);
     if(location) {
       UI.displayLocation(location.LocalizedName);
-      return location.Key;
+      getCurrentWeather(location.Key);
+      document.getElementById('forecastsBtn').addEventListener('click', () => getForecasts(location.Key));
+      // return location.Key;
     } else {
       UI.displayLocation('Place not found');
     }
@@ -58,5 +63,3 @@ async function getLocationKey(input) {
     console.log(err);
   }
 }
-
-export { findCurrentLocation, searchLocation };

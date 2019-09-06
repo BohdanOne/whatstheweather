@@ -28,3 +28,36 @@ body {
   z-index: -2;
 }
 
+header {
+  width: 100%;
+  background: linear-gradient(180deg, rgba(229, 229, 229, 0.9) 0%, rgba(229, 229, 229, 0) 100%);
+    .title {
+    border-bottom: 1px solid $main-col;
+    font-size: 1.4rem;
+    font-weight: 300;
+    margin: 15px auto 0;
+    width: 280px;
+  }
+}
+
+footer {
+  @extend %container;
+  color: $second-col;
+  height: 20px;
+  border: 1px solid;
+  border-radius: 25px;
+  width: 120px;
+  .copyrights {
+    color: inherit;
+    font-size: 0.45rem;
+    text-decoration: none;
+  }
+  &:hover {
+    color: $attention-col;
+    cursor: pointer;
+  }
+}
+
+#app {
+  @extend %container;
+}
