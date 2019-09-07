@@ -21,7 +21,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, "dist"),
     overlay: true,
-    open: 'Google Chrome',
+    open: true,
     port: 8000
   },
   plugins: [

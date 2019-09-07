@@ -1,10 +1,12 @@
-# What's the Weather - Weather App
+# What's the Weather
 
 ## Description
+- Find your current location or use text search for chosen
+- See current weather condition overwiev and details
+- See hourly forecasts for next 12 hours and daily forecasts for next 5 days
+- App uses Geolocation API to find current location
+- App uses AccuWeather API to fetch weather informations
 
-App shows the weather condition for your current location or for chosen city.
-
-You can see current weather and forecasts.
 
 ## Credits
 
