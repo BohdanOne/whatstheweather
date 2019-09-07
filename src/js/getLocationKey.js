@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getCurrentWeather } from './getCurrentWeather';
 import { getForecasts } from './getForecasts';
 
-const APIKEY = 'XgxIqRPGf7MbrzcLz0d8bvOrDmxV5uSo';
+const APIKEY = 'yxSLtFZXYf7f0otRwVvqKM3PZ5Ul3HJt';
 
 const geopositionURL = 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search';
 const textSearchURL = `http://dataservice.accuweather.com/locations/v1/search`;

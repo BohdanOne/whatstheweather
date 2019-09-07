@@ -177,6 +177,7 @@ class UI {
         <p>${forecast[day][time].Snow.Value}cm
         <br>probability: ${forecast[day][time].SnowProbability}%</p>
       </div>
+      <div class="make-space"></div>
       <nav class="nav-bottom">
         <button class="day-night-btn dayBtn" id="dayBtn">day</button>
         <button class="day-night-btn nightBtn" id="nightBtn">night</button>

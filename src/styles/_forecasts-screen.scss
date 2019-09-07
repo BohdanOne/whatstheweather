@@ -14,7 +14,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  div {
+  #hoursDisplay {
     background: transparent;
     display: inline-block;
     margin-bottom: 0;
@@ -43,13 +43,26 @@
     border-top-right-radius: 25px;
   }
 }
+
+.weatherIcon {
+  padding-top: 30px;
+}
+
+.phrase {
+  font-size: 1rem;
+}
+
+.make-space {
+  height: 30px;
+}
+
 .nav-bottom {
+  bottom: 0;
   display: flex;
   font-size: 1rem;
+  left: 0;
   height: 30px;
   position: absolute;
-  bottom: 0;
-  left: 0;
   width: 100%;
   .day-night-btn {
     @extend %reset;

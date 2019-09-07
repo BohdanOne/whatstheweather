@@ -1,7 +1,7 @@
 import UI from './ui';
 import axios from 'axios';
 
-const APIKEY = 'XgxIqRPGf7MbrzcLz0d8bvOrDmxV5uSo';
+const APIKEY = 'yxSLtFZXYf7f0otRwVvqKM3PZ5Ul3HJt';
 const currentURL = 'http://dataservice.accuweather.com/currentconditions/v1/';
 
 export async function getCurrentWeather(key) {
