@@ -7,6 +7,8 @@
 - App uses Geolocation API to find current location
 - App uses AccuWeather API to fetch weather informations
 
+## Live demo
+https://bohdanone.github.io/whatstheweather/
 
 ## Credits
 

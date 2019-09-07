@@ -3,8 +3,8 @@ import axios from 'axios';
 
 const APIKEY = 'yxSLtFZXYf7f0otRwVvqKM3PZ5Ul3HJt';
 
-const hoursForecastURL = 'http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/';
-const daysForecastURL = 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/';
+const hoursForecastURL = 'https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/';
+const daysForecastURL = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/';
 
 export function getForecasts(key) {
   // Display menu

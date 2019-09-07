@@ -5,8 +5,8 @@ import { getForecasts } from './getForecasts';
 
 const APIKEY = 'yxSLtFZXYf7f0otRwVvqKM3PZ5Ul3HJt';
 
-const geopositionURL = 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search';
-const textSearchURL = `http://dataservice.accuweather.com/locations/v1/search`;
+const geopositionURL = 'https://dataservice.accuweather.com/locations/v1/cities/geoposition/search';
+const textSearchURL = `https://dataservice.accuweather.com/locations/v1/search`;
 
 // Location based on Geoposition
 
