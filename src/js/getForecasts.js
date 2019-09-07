@@ -7,9 +7,11 @@ const hoursForecastURL = 'http://dataservice.accuweather.com/forecasts/v1/hourly
 const daysForecastURL = 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/';
 
 export function getForecasts(key) {
+  // Display menu
   UI.displayForecastsMenu();
   document.querySelector('#hoursBtn').addEventListener('click', () => getHourlyForecast(key));
   document.querySelector('#daysBtn').addEventListener('click', () => getDailyForecast(key));
+  // Go back to welcome screen
   document.querySelector('#backBtn').addEventListener('click', () => {
     UI.hideForecastsScreen();
     UI.showWelcomeScreen();
@@ -31,7 +33,6 @@ async function getDailyForecast(key) {
     const forecast = await axios.get(`${daysForecastURL}${key}?apikey=${APIKEY}&metric=true&details=true`)
       .then(res => res.data.DailyForecasts);
     UI.displayDailyForecast(forecast, 0, 'Day');
-
   } catch(err) {
     console.log(err);
   }

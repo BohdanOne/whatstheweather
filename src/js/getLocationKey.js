@@ -13,10 +13,12 @@ const textSearchURL = `http://dataservice.accuweather.com/locations/v1/search`;
 export async function findCurrentLocation(option) {
   try {
     if (navigator.geolocation) {
+      // Find coordinates via Geoocation API
       await navigator.geolocation.getCurrentPosition(position => {
         const latlong = `${position.coords.latitude},${position.coords.longitude}`;
+      // Push position to AccuWeather API or ask user to allow geolocation
         getLocationKeyGeo(latlong);
-      });
+      }, () => UI.displayWarning());
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
@@ -27,11 +29,13 @@ export async function findCurrentLocation(option) {
 
 async function getLocationKeyGeo(coords) {
   try {
+    // Obtain location key from AccuWeather API
     const location = await axios.get(`${geopositionURL}?q=${coords}&apikey=${APIKEY}`)
       .then(res => res.data);
-
+    // Display actual location and current weather conditions
     UI.displayLocation(location.LocalizedName);
     getCurrentWeather(location.Key);
+    // Activate button to access forecasts for current location
     document.getElementById('forecastsBtn').addEventListener('click', () => getForecasts(location.Key))
   } catch(err) {
     console.log(err);
@@ -48,11 +52,14 @@ export function searchLocation(key) {
 
 export async function getLocationKey(input) {
   try {
+    // Obtain location key from AccuWeather API
     const location = await axios.get(`${textSearchURL}?q=${input}&apikey=${APIKEY}`)
       .then(res => res.data[0]);
     if(location) {
+    // Display chosen location and current weather conditions
       UI.displayLocation(location.LocalizedName);
       getCurrentWeather(location.Key);
+    // Activate button to access forecasts for chosen location
       document.getElementById('forecastsBtn').addEventListener('click', () => getForecasts(location.Key));
     } else {
       UI.displayLocation('Place not found');

@@ -11,6 +11,11 @@ const daysBtn = document.getElementById('daysBtn');
 
 class UI {
 
+  static displayWarning() {
+    locationDisplay.innerHTML = `<p>App doesn't have access to your location.
+      <br>Please change your settings or choose location in search-box below.</p>`
+  }
+
   static displayLocation(location) {
     locationDisplay.innerHTML = `<p>Weather in:<br>${location}</p>`
   }
@@ -33,7 +38,6 @@ class UI {
 
   static hideDetailsScreen(){
     detailsScreen.style.display = 'none';
-
   }
 
   static displayDetails(weather) {
@@ -129,7 +133,7 @@ class UI {
         <br>probability: ${forecast[hour].SnowProbability}%</p>
       </div>`;
 
-    // TODO: handle swipes
+    // TODO: allow and handle swipes
     if(hour < 11) {
       document.querySelector('#nextHourBtn').addEventListener('click', () => UI.displayHourlyForecast(forecast, hour+1));
     }
@@ -140,7 +144,7 @@ class UI {
 
   static displayDailyForecast(forecast, day, time) {
     this.hideButtons();
-    forecastDetails.hidden = false;
+    forecastDetails.style.display = "block";
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const weekday = (new Date(forecast[day].Date)).getDay();
     const icon = forecast[day][time].Icon < 10 ? `0${forecast[day][time].Icon}`: forecast[day][time].Icon;
@@ -177,7 +181,7 @@ class UI {
         <button class="day-night-btn dayBtn" id="dayBtn">day</button>
         <button class="day-night-btn nightBtn" id="nightBtn">night</button>
       </nav>`;
-    // higlight button in bottom nav
+    // higlight active button in bottom nav
     if(time === 'Day') {
       document.querySelector('#dayBtn').classList.add('active');
       document.querySelector('#nightBtn').classList.remove('active');
@@ -185,11 +189,10 @@ class UI {
       document.querySelector('#nightBtn').classList.add('active');
       document.querySelector('#dayBtn').classList.remove('active');
     }
-
     document.querySelector('#dayBtn').addEventListener('click', () => UI.displayDailyForecast(forecast, day, 'Day'));
     document.querySelector('#nightBtn').addEventListener('click', () => UI.displayDailyForecast(forecast, day, 'Night'));
 
-    // TODO: handle swipes
+    // TODO: allow and handle swipes
     if(day < 4) {
       document.querySelector('#nextDayBtn').addEventListener('click', () => UI.displayDailyForecast(forecast, day+1, time));
     }
@@ -198,4 +201,5 @@ class UI {
     }
   }
 }
+
 export default UI;
