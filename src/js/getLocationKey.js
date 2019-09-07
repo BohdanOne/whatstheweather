@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getCurrentWeather } from './getCurrentWeather';
 import { getForecasts } from './getForecasts';
 
-const APIKEY = 'ErBJkb4Ssgqc7qlUq8IQgAd80X1eZqix';
+const APIKEY = 'XgxIqRPGf7MbrzcLz0d8bvOrDmxV5uSo';
 
 const geopositionURL = 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search';
 const textSearchURL = `http://dataservice.accuweather.com/locations/v1/search`;
@@ -28,12 +28,11 @@ export async function findCurrentLocation(option) {
 async function getLocationKeyGeo(coords) {
   try {
     const location = await axios.get(`${geopositionURL}?q=${coords}&apikey=${APIKEY}`)
-    .then(res => res.data);
+      .then(res => res.data);
 
     UI.displayLocation(location.LocalizedName);
     getCurrentWeather(location.Key);
     document.getElementById('forecastsBtn').addEventListener('click', () => getForecasts(location.Key))
-    // return location.Key;
   } catch(err) {
     console.log(err);
   }
@@ -55,7 +54,6 @@ export async function getLocationKey(input) {
       UI.displayLocation(location.LocalizedName);
       getCurrentWeather(location.Key);
       document.getElementById('forecastsBtn').addEventListener('click', () => getForecasts(location.Key));
-      // return location.Key;
     } else {
       UI.displayLocation('Place not found');
     }
