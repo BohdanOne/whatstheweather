@@ -1,7 +1,7 @@
 import UI from './ui';
 import axios from 'axios';
 
-const APIKEY = 'yxSLtFZXYf7f0otRwVvqKM3PZ5Ul3HJt';
+const APIKEY = ''; // ADD YOUR APIKEY FROM ACCUWEATHER API
 
 const hoursForecastURL = 'https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/';
 const daysForecastURL = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/';
