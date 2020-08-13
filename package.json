@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "serialize-javascript": "^2.1.1"
+    "serialize-javascript": "^3.1.0"
   },
   "keywords": [
     "weather",
